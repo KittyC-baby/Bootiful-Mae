@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Maeee 💜</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        font-family: "Trebuchet MS", sans-serif;
+
+        background:
+            radial-gradient(circle at 20% 20%, rgba(255, 180, 230, 0.45), transparent 30%),
+            radial-gradient(circle at 80% 80%, rgba(180, 120, 255, 0.4), transparent 30%),
+            linear-gradient(135deg, #fff0fb, #ead5ff, #f9d8f2);
+
+        color: #6d287d;
+    }
+
+    /* Soft floating lights */
+
+    .glow {
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        border-radius: 50%;
+        background: rgba(255, 180, 235, 0.25);
+        filter: blur(45px);
+        animation: floatGlow 6s ease-in-out infinite alternate;
+    }
+
+    .glow.one {
+        top: -50px;
+        left: -50px;
+    }
+
+    .glow.two {
+        bottom: -60px;
+        right: -50px;
+        animation-delay: 2s;
+    }
+
+    @keyframes floatGlow {
+        from {
+            transform: translateY(0);
+        }
+        to {
+            transform: translateY(25px);
+        }
+    }
+
+    .container {
+        position: relative;
+        z-index: 2;
+
+        width: 90%;
+        max-width: 430px;
+        min-height: 90vh;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        text-align: center;
+        padding: 25px;
+    }
+
+    /* Text area */
+
+    .message {
+        min-height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .text {
+        opacity: 0;
+        transform: translateY(15px);
+        font-size: 21px;
+        font-weight: 600;
+        line-height: 1.5;
+        color: #7b348d;
+
+        text-shadow: 0 2px 12px rgba(170, 75, 180, 0.15);
+
+        transition:
+            opacity 1s ease,
+            transform 1s ease;
+    }
+
+    .text.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Flower picture */
+
+    .flower-photo {
+        width: 235px;
+        height: 285px;
+
+        object-fit: cover;
+
+        border-radius: 120px 120px 35px 35px;
+
+        border: 5px solid rgba(255, 255, 255, 0.8);
+
+        box-shadow:
+            0 15px 40px rgba(119, 44, 140, 0.2),
+            0 0 30px rgba(236, 122, 222, 0.25);
+
+        opacity: 0;
+        transform: scale(0.85);
+
+        animation: photoAppear 1.8s ease forwards;
+        animation-delay: 0.7s;
+    }
+
+    @keyframes photoAppear {
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Heart button */
+
+    .heart-button {
+        position: relative;
+
+        width: 75px;
+        height: 75px;
+
+        margin-top: 28px;
+
+        border: none;
+        background: transparent;
+
+        cursor: pointer;
+
+        opacity: 0;
+        transform: scale(0.4);
+
+        transition:
+            opacity 1.5s ease,
+            transform 1.5s ease;
+    }
+
+    .heart-button.show {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    .heart {
+        position: absolute;
+
+        width: 48px;
+        height: 48px;
+
+        left: 13px;
+        top: 13px;
+
+        background: linear-gradient(135deg, #d94fc5, #8d45d8);
+
+        transform: rotate(-45deg);
+
+        border-radius: 7px;
+
+        box-shadow:
+            0 0 15px rgba(213, 74, 207, 0.55),
+            0 0 35px rgba(160, 75, 220, 0.35);
+
+        animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+        content: "";
+
+        position: absolute;
+
+        width: 48px;
+        height: 48px;
+
+        background: inherit;
+
+        border-radius: 50%;
+    }
+
+    .heart::before {
+        top: -24px;
+        left: 0;
+    }
+
+    .heart::after {
+        top: 0;
+        left: 24px;
+    }
+
+    @keyframes heartbeat {
+        0%, 100% {
+            transform: rotate(-45deg) scale(1);
+        }
+
+        50% {
+            transform: rotate(-45deg) scale(1.12);
+        }
+    }
+
+    .heart-text {
+        position: absolute;
+        width: 150px;
+
+        left: 50%;
+        transform: translateX(-50%);
+
+        bottom: -30px;
+
+        font-size: 12px;
+        color: #8b4b9b;
+
+        opacity: 0.8;
+        letter-spacing: 0.5px;
+    }
+
+    /* Little decorative sparkles */
+
+    .sparkle {
+        position: absolute;
+        color: #c55ad4;
+        font-size: 18px;
+        animation: sparkleFloat 3s ease-in-out infinite;
+        opacity: 0.6;
+    }
+
+    .s1 {
+        top: 18%;
+        left: 13%;
+    }
+
+    .s2 {
+        top: 30%;
+        right: 12%;
+        animation-delay: 1s;
+    }
+
+    .s3 {
+        bottom: 20%;
+        left: 18%;
+        animation-delay: 1.7s;
+    }
+
+    .s4 {
+        bottom: 15%;
+        right: 18%;
+        animation-delay: 0.5s;
+    }
+
+    @keyframes sparkleFloat {
+        0%, 100% {
+            transform: translateY(0) scale(1);
+            opacity: 0.45;
+        }
+
+        50% {
+            transform: translateY(-10px) scale(1.2);
+            opacity: 0.9;
+        }
+    }
+
+    @media (max-width: 380px) {
+        .flower-photo {
+            width: 205px;
+            height: 250px;
+        }
+
+        .text {
+            font-size: 18px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+<div class="sparkle s1">✦</div>
+<div class="sparkle s2">✧</div>
+<div class="sparkle s3">✦</div>
+<div class="sparkle s4">✧</div>
+
+<div class="container">
+
+    <div class="message">
+        <p id="messageText" class="text"></p>
+    </div>
+
+    <!-- Your flower picture -->
+    <img src="flowers.png" class="flower-photo" alt="A girl holding a flower">
+
+    <!-- CSS HEART -->
+    <button class="heart-button" id="heartButton" onclick="goNext()">
+        <div class="heart"></div>
+        <span class="heart-text">touch my heart 💜</span>
+    </button>
+
+</div>
+
+<script>
+
+    const messages = [
+        "SURPRISEEEE 😍🎉",
+        "Finally I made this!",
+        "I always wanted to Make something for you",
+        "so maybe this will 😆 do that!!!",
+        "Touch my heart to Open my heart"
+    ];
+
+    let index = 0;
+
+    const messageText = document.getElementById("messageText");
+    const heartButton = document.getElementById("heartButton");
+
+    function showNextMessage() {
+
+        if (index >= messages.length) {
+            heartButton.classList.add("show");
+            return;
+        }
+
+        messageText.classList.remove("show");
+
+        setTimeout(() => {
+
+            messageText.textContent = messages[index];
+
+            messageText.classList.add("show");
+
+            index++;
+
+            setTimeout(showNextMessage, 2200);
+
+        }, 600);
+    }
+
+    // Start the message sequence
+    setTimeout(showNextMessage, 1800);
+
+
+    function goNext() {
+
+        document.body.style.transition = "1s ease";
+        document.body.style.opacity = "0";
+
+        setTimeout(() => {
+            window.location.href = "page2.html";
+        }, 1000);
+    }
+
+</script>
+
+</body>
+  </html>
