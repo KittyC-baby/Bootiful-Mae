@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Do You Know How Special You Are?</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    overflow: hidden;
+
+    font-family: "Trebuchet MS", sans-serif;
+
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 190, 235, 0.45), transparent 30%),
+        radial-gradient(circle at 80% 70%, rgba(190, 130, 255, 0.35), transparent 32%),
+        linear-gradient(135deg, #fff0fb, #ead7ff, #f9d9f3);
+
+    color: #6d287d;
+}
+
+
+/* Floating background glow */
+
+.glow {
+    position: absolute;
+    width: 180px;
+    height: 180px;
+
+    border-radius: 50%;
+
+    background: rgba(215, 125, 235, 0.2);
+
+    filter: blur(50px);
+
+    animation: glowMove 7s ease-in-out infinite alternate;
+}
+
+.glow.one {
+    top: -70px;
+    left: -70px;
+}
+
+.glow.two {
+    bottom: -70px;
+    right: -70px;
+
+    animation-delay: 2s;
+}
+
+@keyframes glowMove {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(30px);
+    }
+}
+
+
+/* Main container */
+
+.container {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 35px 20px;
+}
+
+
+/* Intro text */
+
+.intro {
+    text-align: center;
+
+    max-width: 360px;
+
+    margin-top: 25px;
+}
+
+.intro-line {
+    opacity: 0;
+
+    transform: translateY(15px);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+
+    margin-bottom: 12px;
+
+    font-size: 20px;
+    line-height: 1.4;
+
+    color: #743582;
+}
+
+.intro-line.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.intro-line:first-child {
+    font-size: 25px;
+    font-weight: bold;
+
+    color: #7a328c;
+}
+
+
+/* Hearts area */
+
+.hearts-area {
+    position: relative;
+
+    width: 100%;
+    max-width: 430px;
+
+    flex: 1;
+
+    min-height: 380px;
+}
+
+
+/* Heart buttons */
+
+.heart-button {
+    position: absolute;
+
+    width: 65px;
+    height: 65px;
+
+    border: none;
+    background: transparent;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transform: scale(0.3);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+.heart-button.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.heart-button.opened {
+    opacity: 0.25;
+    transform: scale(0.8);
+    pointer-events: none;
+}
+
+
+/* Heart positions */
+
+.heart1 {
+    top: 15%;
+    left: 8%;
+}
+
+.heart2 {
+    top: 8%;
+    right: 8%;
+}
+
+.heart3 {
+    top: 43%;
+    left: 3%;
+}
+
+.heart4 {
+    top: 48%;
+    right: 3%;
+}
+
+.heart5 {
+    bottom: 8%;
+    left: 20%;
+}
+
+.heart6 {
+    bottom: 6%;
+    right: 20%;
+}
+
+
+/* CSS heart */
+
+.heart-shape {
+    position: absolute;
+
+    width: 38px;
+    height: 38px;
+
+    left: 13px;
+    top: 13px;
+
+    background: linear-gradient(135deg, #d54fc7, #8e46d7);
+
+    transform: rotate(-45deg);
+
+    border-radius: 6px;
+
+    box-shadow:
+        0 0 15px rgba(213, 79, 199, 0.55),
+        0 0 30px rgba(142, 70, 215, 0.35);
+
+    animation: heartPulse 1.7s ease-in-out infinite;
+}
+
+.heart-shape::before,
+.heart-shape::after {
+    content: "";
+
+    position: absolute;
+
+    width: 38px;
+    height: 38px;
+
+    background: inherit;
+
+    border-radius: 50%;
+}
+
+.heart-shape::before {
+    top: -19px;
+    left: 0;
+}
+
+.heart-shape::after {
+    top: 0;
+    left: 19px;
+}
+
+@keyframes heartPulse {
+
+    0%, 100% {
+        transform: rotate(-45deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(-45deg) scale(1.12);
+    }
+}
+
+
+/* Envelope popup */
+
+.envelope-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 20;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 25px;
+
+    background: rgba(65, 25, 80, 0.25);
+
+    backdrop-filter: blur(8px);
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 0.5s ease;
+}
+
+.envelope-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* Envelope */
+
+.envelope {
+    position: relative;
+
+    width: 310px;
+    max-width: 90vw;
+    height: 220px;
+
+    background: #fff7fd;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 20px 60px rgba(100, 40, 120, 0.3);
+
+    transform: scale(0.5) translateY(40px);
+
+    transition: transform 0.8s ease;
+
+    overflow: hidden;
+}
+
+.envelope-overlay.show .envelope {
+    transform: scale(1) translateY(0);
+}
+
+
+/* Envelope back */
+
+.envelope-back {
+    position: absolute;
+
+    inset: 0;
+
+    background: linear-gradient(135deg, #f7d5f0, #e5ccff);
+}
+
+
+/* Envelope flap */
+
+.flap {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left: 155px solid transparent;
+    border-right: 155px solid transparent;
+    border-top: 105px solid #d99ad9;
+
+    transform-origin: top center;
+
+    transition: transform 0.8s ease;
+
+    z-index: 5;
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+
+
+/* Letter */
+
+.letter {
+    position: absolute;
+
+    left: 15px;
+    right: 15px;
+
+    top: 20px;
+    bottom: 15px;
+
+    padding: 25px 18px;
+
+    background: #fffdfd;
+
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    transform: translateY(80px);
+
+    opacity: 0;
+
+    transition:
+        transform 0.9s ease 0.45s,
+        opacity 0.8s ease 0.45s;
+
+    z-index: 3;
+}
+
+.envelope.open .letter {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.letter p {
+    font-size: 17px;
+    line-height: 1.55;
+
+    color: #71367f;
+}
+
+
+/* Close button */
+
+.close-button {
+    position: absolute;
+
+    top: 20px;
+    right: 20px;
+
+    z-index: 30;
+
+    border: none;
+
+    width: 35px;
+    height: 35px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.8);
+
+    color: #71367f;
+
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+
+/* Final button */
+
+.final-button {
+    position: absolute;
+
+    bottom: 25px;
+
+    left: 50%;
+
+    transform: translateX(-50%) translateY(20px);
+
+    padding: 14px 25px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background: linear-gradient(135deg, #c84fc2, #8d46d5);
+
+    color: white;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 8px 25px rgba(140, 60, 170, 0.3);
+
+    cursor: pointer;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+.final-button.show {
+    opacity: 1;
+
+    transform: translateX(-50%) translateY(0);
+
+    pointer-events: auto;
+}
+
+.final-button:active {
+    transform: translateX(-50%) scale(0.95);
+}
+
+
+@media (max-width: 380px) {
+
+    .intro-line {
+        font-size: 18px;
+    }
+
+    .intro-line:first-child {
+        font-size: 22px;
+    }
+
+    .hearts-area {
+        min-height: 350px;
+    }
+
+    .envelope {
+        height: 210px;
+    }
+
+    .letter p {
+        font-size: 15px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+
+<div class="container">
+
+    <div class="intro">
+
+        <p class="intro-line">
+            Do you know how special you are!?
+        </p>
+
+        <p class="intro-line">
+            Probably not.
+        </p>
+
+        <p class="intro-line">
+            Because I don't think I tell you enough.
+        </p>
+
+        <p class="intro-line">
+            See yourself through my eyes 👀
+        </p>
+
+    </div>
+
+
+    <div class="hearts-area">
+
+        <button class="heart-button heart1" onclick="openEnvelope(1)">
+            <div class="heart-shape"></div>
+        </button>
+
+        <button class="heart-button heart2" onclick="openEnvelope(2)">
+            <div class="heart-shape"></div>
+        </button>
+
+        <button class="heart-button heart3" onclick="openEnvelope(3)">
+            <div class="heart-shape"></div>
+        </button>
+
+        <button class="heart-button heart4" onclick="openEnvelope(4)">
+            <div class="heart-shape"></div>
+        </button>
+
+        <button class="heart-button heart5" onclick="openEnvelope(5)">
+            <div class="heart-shape"></div>
+        </button>
+
+        <button class="heart-button heart6" onclick="openEnvelope(6)">
+            <div class="heart-shape"></div>
+        </button>
+
+    </div>
+
+
+    <button class="final-button" id="finalButton" onclick="goNext()">
+        See yourself more with my eyes
+    </button>
+
+</div>
+
+
+<!-- Envelope -->
+
+<div class="envelope-overlay" id="envelopeOverlay">
+
+    <button class="close-button" onclick="closeEnvelope()">
+        ×
+    </button>
+
+    <div class="envelope" id="envelope">
+
+        <div class="envelope-back"></div>
+
+        <div class="letter">
+            <p id="letterText"></p>
+        </div>
+
+        <div class="flap"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+/* Intro animation */
+
+const introLines =
+    document.querySelectorAll(".intro-line");
+
+let introIndex = 0;
+
+function showIntro() {
+
+    if (introIndex >= introLines.length) {
+
+        setTimeout(showHearts, 500);
+
+        return;
+    }
+
+    introLines[introIndex].classList.add("show");
+
+    introIndex++;
+
+    setTimeout(showIntro, 1800);
+}
+
+
+/* Hearts animation */
+
+function showHearts() {
+
+    const hearts =
+        document.querySelectorAll(".heart-button");
+
+    hearts.forEach((heart, i) => {
+
+        setTimeout(() => {
+
+            heart.classList.add("show");
+
+        }, i * 350);
+
+    });
+}
+
+
+/* Messages */
+
+const messages = {
+
+    1:
+    "Your presence somehow, made things a little warmer.",
+
+    2:
+    "Your heart!.. you know how pure and beautiful that is!!? Know it now Maee!! You care in ways you probably don't even realize it!!",
+
+    3:
+    "Thank you a lot for being there for me!! You mean a lot to me!! I never wanna lose you Mae!! I love you a lot!? 😭🌺",
+
+    4:
+    "Thank you for choosing me as your baby!! Kikikikikikikikikiikikik!! Andddd don't regard it!!! When I'm being naughty Hehehe!!",
+
+    5:
+    "I badly want you to see yourself by my eyes!!.. how beautiful you are! How kind you are!! How lovely you are! How strong you are!! I may not tell you all this!! I'm still mamiholic 🐱👀",
+
+    6:
+    "I will tell about you more!!!! And last but not least 🌟🙃 Thank you for being my Lovely Mae 🍓 lovbbbbb you so much naaa~"
+
+};
+
+
+let openedHearts = 0;
+
+
+/* Open envelope */
+
+function openEnvelope(number) {
+
+    const clickedHeart =
+        document.querySelector(".heart" + number);
+
+    if (clickedHeart.classList.contains("opened")) {
+        return;
+    }
+
+    clickedHeart.classList.add("opened");
+
+    document.getElementById("letterText").textContent =
+        messages[number];
+
+    const overlay =
+        document.getElementById("envelopeOverlay");
+
+    const envelope =
+        document.getElementById("envelope");
+
+    overlay.classList.add("show");
+
+    setTimeout(() => {
+        envelope.classList.add("open");
+    }, 150);
+
+    openedHearts++;
+
+}
+
+
+/* Close envelope */
+
+function closeEnvelope() {
+
+    const overlay =
+        document.getElementById("envelopeOverlay");
+
+    const envelope =
+        document.getElementById("envelope");
+
+    envelope.classList.remove("open");
+
+    setTimeout(() => {
+
+        overlay.classList.remove("show");
+
+        checkAllOpened();
+
+    }, 500);
+
+}
+
+
+/* Check all six */
+
+function checkAllOpened() {
+
+    if (openedHearts === 6) {
+
+        setTimeout(() => {
+
+            document
+                .getElementById("finalButton")
+                .classList.add("show");
+
+        }, 400);
+
+    }
+
+}
+
+
+/* Next page */
+
+function goNext() {
+
+    document.body.style.transition =
+        "opacity 1s ease";
+
+    document.body.style.opacity = "0";
+
+    setTimeout(() => {
+
+        window.location.href =
+            "page3.html";
+
+    }, 1000);
+
+}
+
+
+/* Start */
+
+setTimeout(showIntro, 700);
+
+</script>
+
+</body>
+</html>
