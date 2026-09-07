@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Just For Fun 💜</title>
+
+<style>
+
+/* =========================
+   BASIC
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow: hidden;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,190,240,0.45), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(190,150,255,0.4), transparent 30%),
+        linear-gradient(135deg, #5b2c83, #a34f9b, #e47bb7);
+
+    color: white;
+}
+
+
+/* =========================
+   FLOATING LIGHTS
+========================= */
+
+.background span {
+    position: fixed;
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.7);
+
+    animation: float 7s infinite ease-in-out;
+
+    pointer-events: none;
+}
+
+.background span:nth-child(1) {
+    left: 10%;
+    top: 15%;
+}
+
+.background span:nth-child(2) {
+    left: 80%;
+    top: 20%;
+    animation-delay: 1s;
+}
+
+.background span:nth-child(3) {
+    left: 20%;
+    top: 75%;
+    animation-delay: 2s;
+}
+
+.background span:nth-child(4) {
+    left: 75%;
+    top: 70%;
+    animation-delay: 3s;
+}
+
+.background span:nth-child(5) {
+    left: 45%;
+    top: 30%;
+    animation-delay: 4s;
+}
+
+.background span:nth-child(6) {
+    left: 90%;
+    top: 50%;
+    animation-delay: 5s;
+}
+
+@keyframes float {
+
+    0%,100% {
+        transform: translateY(0);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: translateY(-25px);
+        opacity: 1;
+    }
+}
+
+
+/* =========================
+   MAIN CONTAINER
+========================= */
+
+.container {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+    width: 100%;
+    max-width: 430px;
+
+    padding: 32px 24px;
+
+    border-radius: 25px;
+
+    background: rgba(255,255,255,0.15);
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    border: 1px solid rgba(255,255,255,0.25);
+
+    box-shadow:
+        0 20px 50px rgba(40,0,60,0.3);
+
+    text-align: center;
+
+    animation: cardIn 0.8s ease;
+}
+
+@keyframes cardIn {
+
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+
+/* =========================
+   TEXT
+========================= */
+
+h1 {
+    font-size: 1.7rem;
+
+    margin-bottom: 15px;
+
+    text-shadow:
+        0 3px 15px rgba(0,0,0,0.2);
+}
+
+.subtitle {
+    font-size: 1.15rem;
+
+    line-height: 1.6;
+
+    margin-bottom: 28px;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.start-button,
+.next-button,
+.continue-button {
+
+    border: none;
+
+    padding: 13px 25px;
+
+    border-radius: 30px;
+
+    background: white;
+
+    color: #743d86;
+
+    font-size: 1rem;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px rgba(50,0,70,0.25);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.start-button:hover,
+.next-button:hover,
+.continue-button:hover {
+
+    transform: scale(1.06);
+
+    box-shadow:
+        0 10px 30px rgba(50,0,70,0.35);
+}
+
+
+/* =========================
+   QUESTION
+========================= */
+
+.question-number {
+
+    font-size: 0.9rem;
+
+    opacity: 0.8;
+
+    margin-bottom: 10px;
+}
+
+.question {
+
+    font-size: 1.3rem;
+
+    line-height: 1.5;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   ANSWERS
+========================= */
+
+.answers {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 13px;
+}
+
+.answer {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border-radius: 18px;
+
+    border: 1px solid rgba(255,255,255,0.3);
+
+    background: rgba(255,255,255,0.15);
+
+    color: white;
+
+    font-size: 1rem;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+.answer:hover {
+
+    transform: scale(1.03);
+
+    background: rgba(255,255,255,0.25);
+}
+
+
+/* =========================
+   CORRECT / WRONG
+========================= */
+
+.correct {
+
+    background: rgba(150,255,190,0.3) !important;
+
+    transform: scale(1.04);
+}
+
+.wrong {
+
+    background: rgba(255,100,130,0.3) !important;
+
+    animation: shake 0.35s;
+}
+
+@keyframes shake {
+
+    0%,100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-6px);
+    }
+
+    75% {
+        transform: translateX(6px);
+    }
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message {
+
+    min-height: 35px;
+
+    margin-top: 18px;
+
+    font-size: 0.95rem;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   NEXT BUTTON
+========================= */
+
+.next-button {
+
+    display: none;
+
+    margin-top: 15px;
+}
+
+
+/* =========================
+   SCORE
+========================= */
+
+.score-text {
+
+    font-size: 1.25rem;
+
+    line-height: 1.7;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================
+   FINAL REVEAL
+========================= */
+
+.reveal-line {
+
+    opacity: 0;
+
+    transform: translateY(15px);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+
+    font-size: 1.15rem;
+
+    line-height: 1.7;
+
+    margin: 18px 0;
+}
+
+.reveal-line.show {
+
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+.final-question {
+
+    font-size: 1.45rem;
+
+    font-weight: bold;
+
+    margin: 25px 0;
+}
+
+
+/* =========================
+   HIDDEN
+========================= */
+
+.hidden {
+    display: none;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
+
+    .card {
+        padding: 28px 19px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .question {
+        font-size: 1.18rem;
+    }
+
+    .answer {
+        font-size: 0.95rem;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- FLOATING BACKGROUND -->
+
+<div class="background">
+
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+
+</div>
+
+
+
+<div class="container">
+
+
+<div class="card" id="card">
+
+
+<!-- =========================
+     OPENING
+========================= -->
+
+<div id="opening">
+
+    <h1>
+        Okay Mae.. enough emotional damage 😭
+    </h1>
+
+    <div class="subtitle">
+        We can have fun 😆💜
+    </div>
+
+    <button class="start-button" onclick="startQuiz()">
+        Let's Go! →
+    </button>
+
+</div>
+
+
+
+<!-- =========================
+     QUIZ
+========================= -->
+
+<div id="quiz" class="hidden">
+
+    <div class="question-number" id="questionNumber">
+        Question 1 / 5
+    </div>
+
+    <div class="question" id="question">
+    </div>
+
+    <div class="answers" id="answers">
+    </div>
+
+    <div class="message" id="message">
+    </div>
+
+    <button
+        class="next-button"
+        id="nextButton"
+        onclick="nextQuestion()">
+        Next →
+    </button>
+
+</div>
+
+
+
+<!-- =========================
+     SCORE
+========================= -->
+
+<div id="scoreScreen" class="hidden">
+
+    <h1>
+        Quiz Finished! 🎉
+    </h1>
+
+    <div class="score-text" id="scoreText">
+    </div>
+
+    <button
+        class="continue-button"
+        onclick="startReveal()">
+
+        Continue 💜
+
+    </button>
+
+</div>
+
+
+
+<!-- =========================
+     FINAL REVEAL
+========================= -->
+
+<div id="reveal" class="hidden">
+
+    <div class="reveal-line" id="reveal1">
+
+        But there's one question I don't need you to answer...
+
+    </div>
+
+
+    <div class="reveal-line final-question" id="reveal2">
+
+        Do you know how much I love you?
+
+    </div>
+
+
+    <div class="reveal-line" id="reveal3">
+
+        Because no quiz could ever measure that. 💜
+
+    </div>
+
+
+    <div class="reveal-line" id="reveal4">
+
+        🌸🐱
+
+    </div>
+
+
+    <button
+        class="continue-button reveal-line"
+        id="finalButton"
+        onclick="goNext()">
+
+        There's something else I want to show you →
+
+    </button>
+
+</div>
+
+
+</div>
+
+</div>
+
+
+
+<script>
+
+/* =========================
+   QUESTIONS
+========================= */
+
+const questions = [
+
+    {
+        question: "Who is the certified annoying cat?",
+
+        answers: [
+            "🐱 Your Baby",
+            "🌺 Mae"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Who probably talks WAY too much?",
+
+        answers: [
+            "🐱 Your Baby",
+            "🌺 Mae"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Who is more likely to say “kikikikikikikiki”?",
+
+        answers: [
+            "🐱 Your Baby",
+            "🌺 Mae"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "Who loves Mae ridiculously much?",
+
+        answers: [
+            "🐱 Your Baby",
+            "🌺 Mae"
+        ],
+
+        correct: 0
+    },
+
+
+    {
+        question: "What does your baby want most for you?",
+
+        answers: [
+            "🌸 To always be happy",
+            "🍓 To eat all the strawberries",
+            "👀 To become a billionaire",
+            "🐱 To annoy Mae forever"
+        ],
+
+        correct: 0
+    }
+
+];
+
+
+let currentQuestion = 0;
+
+let score = 0;
+
+let answered = false;
+
+
+
+/* =========================
+   START QUIZ
+========================= */
+
+function startQuiz() {
+
+    document.getElementById("opening")
+        .classList.add("hidden");
+
+    document.getElementById("quiz")
+        .classList.remove("hidden");
+
+    showQuestion();
+
+}
+
+
+
+/* =========================
+   SHOW QUESTION
+========================= */
+
+function showQuestion() {
+
+    answered = false;
+
+    const q = questions[currentQuestion];
+
+    document.getElementById("questionNumber")
+        .textContent =
+        "Question " +
+        (currentQuestion + 1) +
+        " / " +
+        questions.length;
+
+    document.getElementById("question")
+        .textContent = q.question;
+
+
+    const answers =
+        document.getElementById("answers");
+
+    answers.innerHTML = "";
+
+
+    document.getElementById("message")
+        .textContent = "";
+
+    document.getElementById("nextButton")
+        .style.display = "none";
+
+
+    q.answers.forEach(function(answer, index) {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "answer";
+
+        button.textContent = answer;
+
+        button.onclick = function() {
+
+            chooseAnswer(index, button);
+
+        };
+
+        answers.appendChild(button);
+
+    });
+
+}
+
+
+
+/* =========================
+   ANSWER
+========================= */
+
+function chooseAnswer(index, button) {
+
+    if (answered) return;
+
+    answered = true;
+
+    const correct =
+        questions[currentQuestion].correct;
+
+
+    if (index === correct) {
+
+        score++;
+
+        button.classList.add("correct");
+
+        document.getElementById("message")
+            .textContent =
+            "KIKIKIKI CORRECTTT 😭🐱💜";
+
+    }
+
+    else {
+
+        button.classList.add("wrong");
+
+        document.getElementById("message")
+            .textContent =
+            "Hehehe nopeee 😭🐱";
+
+        document
+            .querySelectorAll(".answer")[correct]
+            .classList.add("correct");
+
+    }
+
+
+    document.getElementById("nextButton")
+        .style.display = "inline-block";
+
+}
+
+
+
+/* =========================
+   NEXT QUESTION
+========================= */
+
+function nextQuestion() {
+
+    currentQuestion++;
+
+
+    if (currentQuestion < questions.length) {
+
+        showQuestion();
+
+    }
+
+    else {
+
+        showScore();
+
+    }
+
+}
+
+
+
+/* =========================
+   SCORE SCREEN
+========================= */
+
+function showScore() {
+
+    document.getElementById("quiz")
+        .classList.add("hidden");
+
+    document.getElementById("scoreScreen")
+        .classList.remove("hidden");
+
+
+    const scoreText =
+        document.getElementById("scoreText");
+
+
+    if (score <= 2) {
+
+        scoreText.innerHTML =
+            "MAEEEE 😭<br><br>" +
+            "Did you forget your baby already!?";
+
+    }
+
+    else if (score <= 4) {
+
+        scoreText.innerHTML =
+            "Hmmmm... acceptable.<br><br>" +
+            "I'll allow it. 🐱☝️";
+
+    }
+
+    else {
+
+        scoreText.innerHTML =
+            "YOU KNOW YOUR BABY!!! 😭💜🐱";
+
+    }
+
+}
+
+
+
+/* =========================
+   REVEAL
+========================= */
+
+function startReveal() {
+
+    document.getElementById("scoreScreen")
+        .classList.add("hidden");
+
+    document.getElementById("reveal")
+        .classList.remove("hidden");
+
+
+    setTimeout(function() {
+
+        document
+            .getElementById("reveal1")
+            .classList.add("show");
+
+    }, 500);
+
+
+    setTimeout(function() {
+
+        document
+            .getElementById("reveal2")
+            .classList.add("show");
+
+    }, 2500);
+
+
+    setTimeout(function() {
+
+        document
+            .getElementById("reveal3")
+            .classList.add("show");
+
+    }, 5000);
+
+
+    setTimeout(function() {
+
+        document
+            .getElementById("reveal4")
+            .classList.add("show");
+
+    }, 6500);
+
+
+    setTimeout(function() {
+
+        document
+            .getElementById("finalButton")
+            .classList.add("show");
+
+    }, 7500);
+
+}
+
+
+
+/* =========================
+   NEXT PAGE
+========================= */
+
+function goNext() {
+
+    document.body.style.transition =
+        "opacity 0.8s ease";
+
+    document.body.style.opacity = "0";
+
+
+    setTimeout(function() {
+
+        window.location.href = "page6.html";
+
+    }, 800);
+
+}
+
+</script>
+
+</body>
+</html>
