@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Through My Eyes</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    font-family: "Trebuchet MS", sans-serif;
+
+    background:
+        radial-gradient(circle at 15% 20%, rgba(255, 180, 235, 0.45), transparent 30%),
+        radial-gradient(circle at 85% 75%, rgba(185, 125, 255, 0.4), transparent 32%),
+        linear-gradient(135deg, #fff0fb, #ead7ff, #f8d9f2);
+
+    color: #6f317e;
+
+    transition: opacity 1s ease;
+}
+
+
+/* Background glow */
+
+.glow {
+    position: fixed;
+
+    width: 190px;
+    height: 190px;
+
+    border-radius: 50%;
+
+    background: rgba(214, 117, 235, 0.18);
+
+    filter: blur(50px);
+
+    pointer-events: none;
+
+    animation: floatGlow 7s ease-in-out infinite alternate;
+}
+
+.glow.one {
+    top: -70px;
+    left: -70px;
+}
+
+.glow.two {
+    bottom: -70px;
+    right: -70px;
+
+    animation-delay: 2s;
+}
+
+@keyframes floatGlow {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(30px);
+    }
+}
+
+
+/* Main */
+
+.container {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 480px;
+
+    min-height: 100vh;
+
+    margin: auto;
+
+    padding: 35px 22px 45px;
+
+    text-align: center;
+}
+
+
+/* Heading */
+
+.heading {
+    opacity: 0;
+
+    transform: translateY(20px);
+
+    transition:
+        opacity 1.2s ease,
+        transform 1.2s ease;
+
+    margin-top: 15px;
+}
+
+.heading.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.heading h1 {
+    font-size: 30px;
+
+    color: #74327f;
+
+    margin-bottom: 12px;
+
+    text-shadow:
+        0 3px 15px rgba(150, 65, 170, 0.18);
+}
+
+.heading p {
+    font-size: 17px;
+
+    line-height: 1.5;
+
+    color: #8b4b96;
+}
+
+
+/* Photo cards */
+
+.photo-section {
+    margin-top: 35px;
+}
+
+
+/* Individual memory */
+
+.memory {
+    display: none;
+
+    opacity: 0;
+
+    transform: translateY(30px) scale(0.96);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+.memory.active {
+    display: block;
+
+    animation: memoryAppear 1s ease forwards;
+}
+
+@keyframes memoryAppear {
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* Main photo */
+
+.photo-frame {
+    position: relative;
+
+    width: 270px;
+    height: 320px;
+
+    margin: auto;
+
+    padding: 8px;
+
+    background: rgba(255, 255, 255, 0.7);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 18px 45px rgba(105, 40, 125, 0.22),
+        0 0 30px rgba(220, 110, 220, 0.18);
+
+    transform: rotate(-1.5deg);
+}
+
+.photo-frame img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+}
+
+
+/* Little decorative corner */
+
+.corner {
+    position: absolute;
+
+    font-size: 20px;
+
+    color: #bd65c9;
+
+    opacity: 0.75;
+}
+
+.corner.one {
+    top: -13px;
+    left: -10px;
+}
+
+.corner.two {
+    bottom: -13px;
+    right: -10px;
+}
+
+
+/* Text under photo */
+
+.photo-title {
+    margin-top: 25px;
+
+    font-size: 23px;
+
+    font-weight: bold;
+
+    color: #74327f;
+}
+
+.photo-text {
+    margin: 10px auto 0;
+
+    max-width: 340px;
+
+    font-size: 16px;
+
+    line-height: 1.6;
+
+    color: #80518b;
+}
+
+
+/* Words around Mae */
+
+.words {
+    display: flex;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 20px;
+}
+
+.word {
+    padding: 7px 13px;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.55);
+
+    border: 1px solid rgba(160, 90, 180, 0.15);
+
+    color: #88418f;
+
+    font-size: 13px;
+
+    animation: wordFloat 3s ease-in-out infinite alternate;
+}
+
+.word:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.word:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.word:nth-child(4) {
+    animation-delay: 1.5s;
+}
+
+@keyframes wordFloat {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-5px);
+    }
+}
+
+
+/* Family photos */
+
+.family-frame {
+    width: 280px;
+    height: 220px;
+
+    margin: auto;
+
+    padding: 8px;
+
+    background: #fffafc;
+
+    box-shadow:
+        0 15px 35px rgba(100, 40, 120, 0.2);
+
+    border-radius: 5px;
+}
+
+.family-frame img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    border-radius: 2px;
+}
+
+
+/* Navigation */
+
+.navigation {
+    margin-top: 32px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+.nav-button {
+    border: none;
+
+    padding: 12px 21px;
+
+    border-radius: 25px;
+
+    background: rgba(255,255,255,0.65);
+
+    color: #76347f;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 20px rgba(120, 50, 140, 0.12);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.nav-button:hover {
+    transform: translateY(-2px);
+
+    background: rgba(255,255,255,0.85);
+}
+
+.nav-button:active {
+    transform: scale(0.95);
+}
+
+
+/* Progress */
+
+.progress {
+    margin-top: 14px;
+
+    font-size: 12px;
+
+    color: #9b68a3;
+}
+
+
+/* Final button */
+
+.final-button {
+    display: none;
+
+    margin: 30px auto 0;
+
+    padding: 14px 24px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(135deg, #c950c3, #8d46d5);
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 10px 28px rgba(130, 55, 160, 0.3);
+
+    cursor: pointer;
+
+    animation: finalAppear 1s ease forwards;
+}
+
+.final-button.show {
+    display: block;
+}
+
+@keyframes finalAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Mobile */
+
+@media (max-width: 380px) {
+
+    .container {
+        padding-top: 25px;
+    }
+
+    .heading h1 {
+        font-size: 26px;
+    }
+
+    .heading p {
+        font-size: 15px;
+    }
+
+    .photo-frame {
+        width: 235px;
+        height: 285px;
+    }
+
+    .family-frame {
+        width: 250px;
+        height: 195px;
+    }
+
+    .photo-title {
+        font-size: 20px;
+    }
+
+    .photo-text {
+        font-size: 14px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div class="glow one"></div>
+<div class="glow two"></div>
+
+
+<div class="container">
+
+
+    <!-- Heading -->
+
+    <div class="heading" id="heading">
+
+        <h1>Through My Eyes</h1>
+
+        <p>
+            Okay Maee...<br>
+            You wanted to know how I see you?
+        </p>
+
+        <p style="margin-top: 8px;">
+            Come a little closer...
+        </p>
+
+    </div>
+
+
+    <div class="photo-section">
+
+
+        <!-- PHOTO 1 : MAE -->
+
+        <div class="memory active">
+
+            <div class="photo-frame">
+
+                <span class="corner one">✦</span>
+
+                <img
+                    src="photo1.jpg"
+                    alt="Maeee"
+                >
+
+                <span class="corner two">✧</span>
+
+            </div>
+
+            <div class="photo-title">
+                This is the girl I see.
+            </div>
+
+            <div class="photo-text">
+                The girl who is so much more beautiful
+                than she probably realizes.
+            </div>
+
+            <div class="words">
+
+                <span class="word">Beautiful</span>
+                <span class="word">Kind</span>
+                <span class="word">Strong</span>
+                <span class="word">Lovely</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- PHOTO 2 : YOU -->
+
+        <div class="memory">
+
+            <div class="photo-frame">
+
+                <span class="corner one">✦</span>
+
+                <img
+                    src="photo2.jpg"
+                    alt="Her baby"
+                >
+
+                <span class="corner two">✧</span>
+
+            </div>
+
+            <div class="photo-title">
+                And this...
+            </div>
+
+            <div class="photo-text">
+                ...is your baby, who somehow got lucky
+                enough to call you Mae.
+            </div>
+
+        </div>
+
+
+        <!-- PHOTO 3 : FAMILY -->
+
+        <div class="memory">
+
+            <div class="family-frame">
+
+                <img
+                    src="photo3.jpg"
+                    alt="Family memory"
+                >
+
+            </div>
+
+            <div class="photo-title">
+                A little piece of our story.
+            </div>
+
+            <div class="photo-text">
+                Maybe it looks like an ordinary picture...
+                but I see a memory I'll always treasure.
+            </div>
+
+        </div>
+
+
+        <!-- PHOTO 4 : FAMILY -->
+
+        <div class="memory">
+
+            <div class="family-frame">
+
+                <img
+                    src="photo4.jpg"
+                    alt="Family memory"
+                >
+
+            </div>
+
+            <div class="photo-title">
+                A little piece of home.
+            </div>
+
+            <div class="photo-text">
+                Different moments, different memories...
+                but somehow, they all remind me of you.
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- Navigation -->
+
+    <div class="navigation">
+
+        <button
+            class="nav-button"
+            id="prevButton"
+            onclick="previousPhoto()"
+        >
+            ← Back
+        </button>
+
+        <button
+            class="nav-button"
+            id="nextButton"
+            onclick="nextPhoto()"
+        >
+            Next →
+        </button>
+
+    </div>
+
+
+    <div class="progress" id="progress">
+        1 / 4
+    </div>
+
+
+    <!-- Final button -->
+
+    <button
+        class="final-button"
+        id="finalButton"
+        onclick="goNext()"
+    >
+        There's more I want to tell you →
+    </button>
+
+
+</div>
+
+
+<script>
+
+
+/* Heading fade-in */
+
+setTimeout(() => {
+
+    document
+        .getElementById("heading")
+        .classList.add("show");
+
+}, 500);
+
+
+/* Photos */
+
+const memories =
+    document.querySelectorAll(".memory");
+
+let currentPhoto = 0;
+
+
+/* Show selected photo */
+
+function showPhoto(index) {
+
+    memories.forEach((memory, i) => {
+
+        memory.classList.remove("active");
+
+        if (i === index) {
+            memory.classList.add("active");
+        }
+
+    });
+
+
+    document.getElementById("progress").textContent =
+        (index + 1) + " / " + memories.length;
+
+
+    const prev =
+        document.getElementById("prevButton");
+
+    const next =
+        document.getElementById("nextButton");
+
+
+    prev.style.visibility =
+        index === 0 ? "hidden" : "visible";
+
+
+    if (index === memories.length - 1) {
+
+        next.style.display = "none";
+
+        document
+            .getElementById("finalButton")
+            .classList.add("show");
+
+    } else {
+
+        next.style.display = "block";
+
+        document
+            .getElementById("finalButton")
+            .classList.remove("show");
+
+    }
+
+}
+
+
+/* Next */
+
+function nextPhoto() {
+
+    if (currentPhoto < memories.length - 1) {
+
+        currentPhoto++;
+
+        showPhoto(currentPhoto);
+
+    }
+
+}
+
+
+/* Previous */
+
+function previousPhoto() {
+
+    if (currentPhoto > 0) {
+
+        currentPhoto--;
+
+        showPhoto(currentPhoto);
+
+    }
+
+}
+
+
+/* Next page */
+
+function goNext() {
+
+    document.body.style.opacity = "0";
+
+    setTimeout(() => {
+
+        window.location.href =
+            "page4.html";
+
+    }, 1000);
+
+}
+
+
+/* Initial state */
+
+showPhoto(0);
+
+</script>
+
+</body>
+  </html>
