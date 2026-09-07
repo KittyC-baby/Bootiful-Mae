@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baby's Little Arcade 🎮</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    min-height:100vh;
+    font-family:"Trebuchet MS", sans-serif;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,120,220,.25), transparent 30%),
+        radial-gradient(circle at 80% 80%, rgba(150,100,255,.3), transparent 30%),
+        linear-gradient(135deg,#210d35,#4b1764,#24103e);
+    color:white;
+    overflow-x:hidden;
+    text-align:center;
+}
+
+/* FLOATING LIGHTS */
+
+.light{
+    position:fixed;
+    width:8px;
+    height:8px;
+    background:rgba(255,255,255,.7);
+    border-radius:50%;
+    box-shadow:0 0 15px rgba(255,180,255,.9);
+    animation:float 7s infinite ease-in-out;
+    pointer-events:none;
+}
+
+.light:nth-child(1){left:8%;top:20%;animation-delay:0s;}
+.light:nth-child(2){left:25%;top:70%;animation-delay:2s;}
+.light:nth-child(3){left:50%;top:15%;animation-delay:1s;}
+.light:nth-child(4){left:75%;top:55%;animation-delay:3s;}
+.light:nth-child(5){left:90%;top:25%;animation-delay:1.5s;}
+.light:nth-child(6){left:60%;top:85%;animation-delay:4s;}
+
+@keyframes float{
+    0%,100%{transform:translateY(0);opacity:.4;}
+    50%{transform:translateY(-30px);opacity:1;}
+}
+
+/* OPENING */
+
+.screen{
+    min-height:100vh;
+    padding:45px 20px;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    animation:fadeIn .7s ease;
+}
+
+.screen.active{
+    display:flex;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(15px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+.opening-text{
+    max-width:600px;
+    font-size:22px;
+    line-height:1.7;
+}
+
+.opening-text p{
+    opacity:0;
+    animation:appear 1s forwards;
+}
+
+.opening-text p:nth-child(1){animation-delay:.3s;}
+.opening-text p:nth-child(2){animation-delay:1.5s;}
+
+@keyframes appear{
+    to{opacity:1;}
+}
+
+.arcade-title{
+    margin-top:35px;
+    font-size:35px;
+    color:#ffd6ff;
+    text-shadow:0 0 18px rgba(255,150,255,.8);
+    opacity:0;
+    animation:appear 1s 2.7s forwards;
+}
+
+.arcade-sub{
+    margin-top:12px;
+    font-size:17px;
+    line-height:1.6;
+    opacity:0;
+    animation:appear 1s 3.5s forwards;
+}
+
+.start-btn{
+    margin-top:35px;
+    opacity:0;
+    animation:appear 1s 4.4s forwards;
+}
+
+/* BUTTON */
+
+button{
+    border:none;
+    padding:14px 25px;
+    border-radius:30px;
+    background:linear-gradient(135deg,#ff8bdc,#b987ff);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 8px 25px rgba(0,0,0,.3);
+    transition:.25s;
+}
+
+button:hover{
+    transform:scale(1.06);
+}
+
+button:active{
+    transform:scale(.95);
+}
+
+/* GAME CARD */
+
+.game-card{
+    width:min(92vw,650px);
+    padding:28px 20px;
+    border-radius:28px;
+    background:rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.2);
+    backdrop-filter:blur(15px);
+    box-shadow:0 15px 45px rgba(0,0,0,.3);
+}
+
+.game-number{
+    font-size:14px;
+    opacity:.7;
+    margin-bottom:8px;
+}
+
+.game-title{
+    font-size:29px;
+    color:#ffd9ff;
+    margin-bottom:10px;
+}
+
+.hint{
+    margin:15px auto 25px;
+    max-width:500px;
+    font-size:15px;
+    color:#ffe6fb;
+}
+
+.food-options{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:35px;
+    flex-wrap:wrap;
+}
+
+.food{
+    width:115px;
+    height:115px;
+    border-radius:25px;
+    background:rgba(255,255,255,.12);
+    border:1px solid rgba(255,255,255,.18);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:60px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.food:hover{
+    transform:translateY(-8px) scale(1.05);
+    background:rgba(255,255,255,.2);
+}
+
+.response{
+    min-height:55px;
+    margin:25px auto 5px;
+    font-size:19px;
+    font-weight:bold;
+    color:#fff0ff;
+}
+
+/* GAME 2 */
+
+.catch-area{
+    position:relative;
+    width:100%;
+    max-width:580px;
+    height:390px;
+    margin:15px auto;
+    border-radius:25px;
+    background:rgba(0,0,0,.15);
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.15);
+}
+
+.catch-heart{
+    position:absolute;
+    width:43px;
+    height:43px;
+    background:#ff8fdc;
+    transform:rotate(-45deg);
+    cursor:pointer;
+    box-shadow:0 0 18px rgba(255,130,220,.8);
+}
+
+.catch-heart:before,
+.catch-heart:after{
+    content:"";
+    position:absolute;
+    width:43px;
+    height:43px;
+    background:#ff8fdc;
+    border-radius:50%;
+}
+
+.catch-heart:before{
+    top:-21px;
+    left:0;
+}
+
+.catch-heart:after{
+    left:21px;
+    top:0;
+}
+
+.score{
+    font-size:18px;
+    margin:10px;
+}
+
+/* GAME 3 */
+
+.find-area{
+    position:relative;
+    width:100%;
+    max-width:580px;
+    height:390px;
+    margin:20px auto;
+    border-radius:25px;
+    overflow:hidden;
+    background:
+        radial-gradient(circle at 20% 20%,rgba(255,160,230,.2),transparent 20%),
+        radial-gradient(circle at 80% 70%,rgba(170,130,255,.25),transparent 25%),
+        rgba(255,255,255,.08);
+}
+
+.decor{
+    position:absolute;
+    font-size:28px;
+    opacity:.8;
+    user-select:none;
+}
+
+.hidden-heart{
+    position:absolute;
+    width:24px;
+    height:24px;
+    background:#ff8bdc;
+    transform:rotate(-45deg);
+    cursor:pointer;
+    z-index:5;
+    box-shadow:0 0 12px rgba(255,130,220,.9);
+}
+
+.hidden-heart:before,
+.hidden-heart:after{
+    content:"";
+    position:absolute;
+    width:24px;
+    height:24px;
+    background:#ff8bdc;
+    border-radius:50%;
+}
+
+.hidden-heart:before{
+    top:-12px;
+}
+
+.hidden-heart:after{
+    left:12px;
+}
+
+/* GAME 4 */
+
+.baby-zone{
+    position:relative;
+    width:100%;
+    max-width:580px;
+    height:390px;
+    margin:20px auto;
+    border-radius:25px;
+    background:rgba(0,0,0,.15);
+    overflow:hidden;
+}
+
+.baby{
+    position:absolute;
+    font-size:48px;
+    left:50%;
+    transform:translateX(-50%);
+    transition:.5s;
+}
+
+.platforms{
+    position:absolute;
+    bottom:20px;
+    left:0;
+    right:0;
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    padding:10px;
+}
+
+.platforms button{
+    font-size:14px;
+    padding:12px 15px;
+}
+
+.final-message{
+    font-size:28px;
+    color:#ffd7ff;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+.small{
+    font-size:16px;
+    line-height:1.6;
+    opacity:.9;
+    margin-bottom:20px;
+}
+
+.progress{
+    margin-top:18px;
+    font-size:14px;
+    opacity:.7;
+}
+
+.hidden{
+    display:none !important;
+}
+
+.shake{
+    animation:shake .35s;
+}
+
+@keyframes shake{
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-8px);}
+    75%{transform:translateX(8px);}
+}
+
+.pop{
+    animation:pop .35s;
+}
+
+@keyframes pop{
+    0%{transform:scale(.7);}
+    70%{transform:scale(1.15);}
+    100%{transform:scale(1);}
+}
+
+@media(max-width:500px){
+    .arcade-title{font-size:29px;}
+    .game-title{font-size:25px;}
+    .opening-text{font-size:19px;}
+    .catch-area,.find-area,.baby-zone{height:350px;}
+    .food{width:100px;height:100px;font-size:52px;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- FLOATING LIGHTS -->
+
+<div class="light"></div>
+<div class="light"></div>
+<div class="light"></div>
+<div class="light"></div>
+<div class="light"></div>
+<div class="light"></div>
+
+
+<!-- OPENING -->
+
+<section class="screen active" id="opening">
+
+    <div class="opening-text">
+        <p>I'm so bored!! Let's play a game okieee!!</p>
+        <p>I promise you will have fun with it 😼</p>
+    </div>
+
+    <h1 class="arcade-title">🎮 BABY’S LITTLE ARCADE</h1>
+
+    <div class="arcade-sub">
+        “Okay Maee… you survived the emotional pages.” 😭<br>
+        “Now you have to survive my games. Kikikikiki 👀”
+    </div>
+
+    <div class="start-btn">
+        <button onclick="startGame1()">LET'S PLAY 🎮</button>
+    </div>
+
+</section>
+
+
+<!-- GAME 1 -->
+
+<section class="screen" id="game1">
+
+    <div class="game-card">
+
+        <div class="game-number">GAME 1 • FEED THE BABY</div>
+
+        <h2 class="game-title">🍓 Feed Your Baby</h2>
+
+        <p class="hint" id="foodHint">
+            you know your baby right!??
+        </p>
+
+        <div class="food-options" id="foodOptions"></div>
+
+        <div class="response" id="foodResponse"></div>
+
+        <div class="progress" id="foodProgress">1 / 5</div>
+
+    </div>
+
+</section>
+
+
+<!-- GAME 2 -->
+
+<section class="screen" id="game2">
+
+    <div class="game-card">
+
+        <div class="game-number">GAME 2 • CATCH THE HEARTS</div>
+
+        <h2 class="game-title">💜 Catch Them All</h2>
+
+        <p class="hint">
+            Catch 10 hearts before they disappear! 👀
+        </p>
+
+        <div class="score" id="catchScore">Caught: 0 / 10</div>
+
+        <div class="catch-area" id="catchArea"></div>
+
+        <div class="response" id="catchResponse"></div>
+
+        <button class="hidden" id="game2Next" onclick="startGame3()">
+            Next game okie!? 🐱
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- GAME 3 -->
+
+<section class="screen" id="game3">
+
+    <div class="game-card">
+
+        <div class="game-number">GAME 3 • FIND THE HIDDEN HEART</div>
+
+        <h2 class="game-title">👀 Find It!</h2>
+
+        <p class="hint">
+            Somewhere in here... there's a tiny heart hiding. 👀
+        </p>
+
+        <div class="find-area" id="findArea"></div>
+
+        <div class="response" id="findResponse"></div>
+
+        <button class="hidden" id="game3Next" onclick="startGame4()">
+            I promise this is the last one 8)
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- GAME 4 -->
+
+<section class="screen" id="game4">
+
+    <div class="game-card">
+
+        <div class="game-number">GAME 4 • SAVE THE BABY</div>
+
+        <h2 class="game-title">🎯 Don't Let Baby Lose</h2>
+
+        <p class="hint" id="saveHint">
+            Okay Maee... LAST GAME!!<br>
+            I promise this is the last one 8)
+        </p>
+
+        <div class="baby-zone" id="babyZone">
+
+            <div class="baby" id="baby">🐱</div>
+
+            <div class="platforms" id="platforms"></div>
+
+        </div>
+
+        <div class="response" id="saveResponse"></div>
+
+        <button class="hidden" id="finishButton" onclick="finishArcade()">
+            Finish the Arcade 🎮
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- COMPLETE -->
+
+<section class="screen" id="complete">
+
+    <div class="game-card">
+
+        <div class="final-message">
+            🎉 YOU DID IT!!! 🎉
+        </div>
+
+        <p class="small">
+            YOU BEAT ALL FOUR GAMES!!! 😭💜
+        </p>
+
+        <p class="small">
+            Okay Maee... maybe you're actually good at this. 😭
+        </p>
+
+        <p class="small">
+            You survived my arcade...<br><br>
+            Now let's see what's waiting for you next. 👀💜
+        </p>
+
+        <button onclick="goNext()">
+            Continue →
+        </button>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   SCREEN CONTROL
+========================= */
+
+function showScreen(id){
+
+    document.querySelectorAll(".screen").forEach(screen=>{
+        screen.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* =========================
+   GAME 1
+========================= */
+
+let foodRound = 0;
+
+const foodGames = [
+
+    {
+        foods:["🍫","🥦"],
+        hint:"you know your baby right!??",
+        messages:[
+            "YESSS I LOVE IT",
+            "owwie okie I'll eat it"
+        ]
+    },
+
+    {
+        foods:["🍓","🫑"],
+        hint:"🐱 come you definitely can't tap a wrong one right!?",
+        messages:[
+            "it is my favourite fruit 🍓",
+            "Shinchan doesn't like it I won't eat it too 😭"
+        ]
+    },
+
+    {
+        foods:["🍬","🍵","🥦"],
+        hint:"🙂 please don't you dare maee touch that!! You know what I mean! Right!!?",
+        messages:[
+            "😭 yessss that's itt",
+            "ewww 😭 green tea!?",
+            "I SAID I WILL EAT IT BUT THAT DOESN'T MEAN I WILL RIGHT NOW"
+        ]
+    },
+
+    {
+        foods:["🍨","🥗"],
+        hint:"no hits is the hits 🙂 am i confusing kikikikikikikikikiikikik",
+        messages:[
+            "YESSSSSSSSSS",
+            "🥲 healthy!?"
+        ]
+    },
+
+    {
+        foods:["🧋","🍺"],
+        hint:"i know you will kill me if I drink something that",
+        messages:[
+            "🐱 but me thatttttttt",
+            "nah nahh I won't cross my mae's words"
+        ]
+    }
+
+];
+
+
+function startGame1(){
+
+    foodRound=0;
+
+    showScreen("game1");
+
+    loadFoodRound();
+}
+
+
+function loadFoodRound(){
+
+    const game=foodGames[foodRound];
+
+    document.getElementById("foodHint").textContent=game.hint;
+
+    document.getElementById("foodProgress").textContent=
+        (foodRound+1)+" / 5";
+
+    const container=document.getElementById("foodOptions");
+
+    container.innerHTML="";
+
+    document.getElementById("foodResponse").textContent="";
+
+    game.foods.forEach((food,index)=>{
+
+        const button=document.createElement("div");
+
+        button.className="food";
+        button.textContent=food;
+
+        button.onclick=function(){
+
+            chooseFood(index);
+
+        };
+
+        container.appendChild(button);
+
+    });
+
+}
+
+
+function chooseFood(index){
+
+    const game=foodGames[foodRound];
+
+    const response=document.getElementById("foodResponse");
+
+    response.textContent=game.messages[index];
+
+    response.classList.remove("pop");
+
+    void response.offsetWidth;
+
+    response.classList.add("pop");
+
+    document.querySelectorAll(".food").forEach(x=>{
+        x.style.pointerEvents="none";
+    });
+
+    setTimeout(()=>{
+
+        foodRound++;
+
+        if(foodRound<5){
+
+            loadFoodRound();
+
+        }else{
+
+            showGame2Button();
+
+        }
+
+    },1200);
+
+}
+
+
+function showGame2Button(){
+
+    const card=document.querySelector("#game1 .game-card");
+
+    const old=document.getElementById("foodNext");
+
+    if(old) old.remove();
+
+    const button=document.createElement("button");
+
+    button.id="foodNext";
+    button.textContent="Ready for next game!? 😼";
+
+    button.onclick=startGame2;
+
+    card.appendChild(button);
+
+}
+
+
+/* =========================
+   GAME 2
+========================= */
+
+let caught=0;
+let catchInterval;
+let game2Running=false;
+
+
+function startGame2(){
+
+    showScreen("game2");
+
+    caught=0;
+    game2Running=true;
+
+    document.getElementById("catchScore").textContent=
+        "Caught: 0 / 10";
+
+    document.getElementById("catchResponse").textContent="";
+
+    document.getElementById("game2Next").classList.add("hidden");
+
+    const area=document.getElementById("catchArea");
+
+    area.innerHTML="";
+
+    clearInterval(catchInterval);
+
+    spawnHeart();
+
+    catchInterval=setInterval(()=>{
+
+        if(game2Running){
+            spawnHeart();
+        }
+
+    },900);
+
+}
+
+
+function spawnHeart(){
+
+    const area=document.getElementById("catchArea");
+
+    if(area.children.length>4){
+        area.firstElementChild.remove();
+    }
+
+    const heart=document.createElement("div");
+
+    heart.className="catch-heart";
+
+    const maxX=area.clientWidth-55;
+    const maxY=area.clientHeight-55;
+
+    heart.style.left=Math.random()*maxX+"px";
+    heart.style.top=Math.random()*maxY+"px";
+
+    heart.onclick=function(){
+
+        caught++;
+
+        heart.remove();
+
+        document.getElementById("catchScore").textContent=
+            "Caught: "+caught+" / 10";
+
+        if(caught>=10){
+
+            finishGame2();
+
+        }
+
+    };
+
+    area.appendChild(heart);
+
+}
+
+
+function finishGame2(){
+
+    game2Running=false;
+
+    clearInterval(catchInterval);
+
+    document.getElementById("catchArea").innerHTML="";
+
+    document.getElementById("catchResponse").textContent=
+        "Wow 😲 so talented Mae!!";
+
+    document.getElementById("game2Next").classList.remove("hidden");
+
+}
+
+
+/* =========================
+   GAME 3
+========================= */
+
+function startGame3(){
+
+    showScreen("game3");
+
+    document.getElementById("game3Next").classList.add("hidden");
+
+    document.getElementById("findResponse").textContent="";
+
+    const area=document.getElementById("findArea");
+
+    area.innerHTML="";
+
+    /* decorations */
+
+    const decorations=[
+        "🌸","⭐","🎀","🍓","✨","🌺",
+        "☁️","🌷","🍒","🌙","🦋","💗",
+        "🎀","⭐","🌸","🍓","✨","🌺",
+        "☁️","🌷"
+    ];
+
+    decorations.forEach(item=>{
+
+        const d=document.createElement("div");
+
+        d.className="decor";
+        d.textContent=item;
+
+        d.style.left=(Math.random()*90)+"%";
+        d.style.top=(Math.random()*88)+"%";
+
+        area.appendChild(d);
+
+    });
+
+    /* hidden heart */
+
+    const heart=document.createElement("div");
+
+    heart.className="hidden-heart";
+
+    heart.style.left=(8+Math.random()*82)+"%";
+    heart.style.top=(8+Math.random()*80)+"%";
+
+    heart.onclick=function(){
+
+        heart.remove();
+
+        document.getElementById("findResponse").textContent=
+            "Wow Maeee you have a great eye!!";
+
+        document.getElementById("game3Next").classList.remove("hidden");
+
+    };
+
+    area.appendChild(heart);
+
+}
+
+
+/* =========================
+   GAME 4
+========================= */
+
+let saveRound=0;
+
+const saveGames=[
+
+    {
+        hint:"Your baby is falling 😭 SAVE ME!!",
+        options:["CATCH ME","LET ME FALL"],
+        correct:0,
+        success:"YESSS YOU SAVED ME 😭💜"
+    },
+
+    {
+        hint:"Maee... choose carefully 👀",
+        options:["SAFE","DEFINITELY NOT SAFE"],
+        correct:0,
+        success:"YOU KNOW WHAT YOU'RE DOING 😭🐱"
+    },
+
+    {
+        hint:"What should baby eat? 👀",
+        options:["BABY'S SNACK 🍓","THE THING WE DON'T TALK ABOUT 🥦"],
+        correct:0,
+        success:"YOU KNOW ME TOO WELL 😭🐱"
+    },
+
+    {
+        hint:"Baby needs something right now... 🥺",
+        options:["HUG BABY 💗","IGNORE BABY 👀"],
+        correct:0,
+        success:"COME HEREEEE 😭💗"
+    },
+
+    {
+        hint:"WHO DOES BABY WANT?",
+        options:["MAE 💜","SOME RANDOM PERSON"],
+        correct:0,
+        success:"CORRECT ANSWER 😌💜"
+    }
+
+];
+
+
+function startGame4(){
+
+    showScreen("game4");
+
+    saveRound=0;
+
+    document.getElementById("finishButton").classList.add("hidden");
+
+    document.getElementById("saveResponse").textContent="";
+
+    loadSaveRound();
+
+}
+
+
+function loadSaveRound(){
+
+    const game=saveGames[saveRound];
+
+    document.getElementById("saveHint").innerHTML=
+        game.hint;
+
+    const platforms=document.getElementById("platforms");
+
+    platforms.innerHTML="";
+
+    const baby=document.getElementById("baby");
+
+    baby.style.top="30px";
+
+    game.options.forEach((option,index)=>{
+
+        const button=document.createElement("button");
+
+        button.textContent=option;
+
+        button.onclick=function(){
+
+            chooseSave(index);
+
+        };
+
+        platforms.appendChild(button);
+
+    });
+
+}
+
+
+function chooseSave(index){
+
+    const game=saveGames[saveRound];
+
+    const response=document.getElementById("saveResponse");
+
+    if(index===game.correct){
+
+        response.textContent=game.success;
+
+        response.classList.remove("pop");
+
+        void response.offsetWidth;
+
+        response.classList.add("pop");
+
+        document.getElementById("baby").style.top=
+            (40-saveRound*3)+"px";
+
+        document.querySelectorAll("#platforms button")
+            .forEach(btn=>btn.disabled=true);
+
+        setTimeout(()=>{
+
+            saveRound++;
+
+            if(saveRound<saveGames.length){
+
+                loadSaveRound();
+
+            }else{
+
+                response.textContent=
+                    "🎉 YOU SAVED YOUR BABY!!! 😭💜";
+
+                document.getElementById("finishButton")
+                    .classList.remove("hidden");
+
+            }
+
+        },1100);
+
+    }else{
+
+        response.textContent=
+            "MAEEEE 😭 YOU JUST LET YOUR BABY FALL";
+
+        const baby=document.getElementById("baby");
+
+        baby.style.top="290px";
+
+        baby.classList.remove("shake");
+
+        void baby.offsetWidth;
+
+        baby.classList.add("shake");
+
+        setTimeout(()=>{
+
+            response.textContent=
+                "Okay okay 😭 TRY AGAIN!!";
+
+            baby.style.top="30px";
+
+        },900);
+
+    }
+
+}
+
+
+/* =========================
+   COMPLETE
+========================= */
+
+function finishArcade(){
+
+    showScreen("complete");
+
+}
+
+
+/* =========================
+   NEXT PAGE
+========================= */
+
+function goNext(){
+
+    document.body.style.transition="opacity .8s";
+
+    document.body.style.opacity="0";
+
+    setTimeout(()=>{
+
+        window.location.href="page7.html";
+
+    },800);
+
+}
+
+</script>
+
+</body>
+</html>
