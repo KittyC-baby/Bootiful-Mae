@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>If You Ever Forget... 🌌</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Georgia, serif;
+    background: #02000b;
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* GALAXY BACKGROUND */
+.galaxy {
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.25), transparent 25%),
+        radial-gradient(circle at 80% 30%, rgba(236, 72, 153, 0.18), transparent 25%),
+        radial-gradient(circle at 50% 80%, rgba(99, 102, 241, 0.18), transparent 30%),
+        linear-gradient(180deg, #02000b, #09001a, #03000c);
+    z-index: -3;
+}
+
+/* STARS */
+.stars,
+.stars2,
+.stars3 {
+    position: fixed;
+    inset: 0;
+    background-repeat: repeat;
+    pointer-events: none;
+}
+
+.stars {
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, white, transparent),
+        radial-gradient(1px 1px at 90px 120px, white, transparent),
+        radial-gradient(2px 2px at 200px 80px, white, transparent),
+        radial-gradient(1px 1px at 300px 180px, white, transparent),
+        radial-gradient(2px 2px at 400px 40px, white, transparent),
+        radial-gradient(1px 1px at 500px 150px, white, transparent);
+    background-size: 550px 220px;
+    opacity: 0.7;
+    animation: moveStars 30s linear infinite;
+    z-index: -2;
+}
+
+.stars2 {
+    background-image:
+        radial-gradient(1px 1px at 50px 60px, #d8b4fe, transparent),
+        radial-gradient(2px 2px at 150px 190px, #f9a8d4, transparent),
+        radial-gradient(1px 1px at 270px 100px, white, transparent),
+        radial-gradient(1px 1px at 370px 220px, #c4b5fd, transparent),
+        radial-gradient(2px 2px at 480px 70px, white, transparent);
+    background-size: 600px 260px;
+    opacity: 0.55;
+    animation: moveStars 50s linear infinite reverse;
+    z-index: -1;
+}
+
+.stars3 {
+    background-image:
+        radial-gradient(1px 1px at 100px 100px, white, transparent),
+        radial-gradient(1px 1px at 250px 50px, white, transparent),
+        radial-gradient(1px 1px at 450px 170px, white, transparent),
+        radial-gradient(2px 2px at 550px 30px, #f5d0fe, transparent);
+    background-size: 700px 300px;
+    opacity: 0.4;
+    animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+@keyframes moveStars {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-220px);
+    }
+}
+
+@keyframes twinkle {
+    from {
+        opacity: 0.25;
+    }
+    to {
+        opacity: 0.7;
+    }
+}
+
+/* PAGE SYSTEM */
+.page {
+    display: none;
+    min-height: 100vh;
+    padding: 50px 25px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    animation: fadeIn 1.2s ease;
+}
+
+.page.active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.content {
+    width: 100%;
+    max-width: 650px;
+}
+
+/* TEXT */
+.small {
+    font-size: 16px;
+    color: #d8b4fe;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+h1 {
+    font-size: 42px;
+    margin-bottom: 25px;
+    color: #f5d0fe;
+    text-shadow: 0 0 25px rgba(236, 72, 153, 0.5);
+}
+
+h2 {
+    font-size: 30px;
+    color: #e9d5ff;
+    margin-bottom: 25px;
+}
+
+p {
+    font-size: 19px;
+    line-height: 1.8;
+    color: #f3e8ff;
+    margin-bottom: 12px;
+}
+
+/* BUTTON */
+button {
+    margin-top: 30px;
+    padding: 14px 28px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 30px;
+    background: rgba(139, 92, 246, 0.2);
+    color: white;
+    font-size: 16px;
+    font-family: Georgia, serif;
+    cursor: pointer;
+    transition: 0.4s;
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+}
+
+button:hover {
+    transform: scale(1.07);
+    background: rgba(236, 72, 153, 0.3);
+    box-shadow: 0 0 30px rgba(236, 72, 153, 0.4);
+}
+
+/* CONSTELLATION */
+.constellation {
+    position: relative;
+    height: 160px;
+    margin: 20px auto;
+    max-width: 500px;
+}
+
+.star {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 12px white;
+}
+
+.star:nth-child(1) {
+    left: 15%;
+    top: 50%;
+}
+
+.star:nth-child(2) {
+    left: 35%;
+    top: 20%;
+}
+
+.star:nth-child(3) {
+    left: 55%;
+    top: 60%;
+}
+
+.star:nth-child(4) {
+    left: 75%;
+    top: 30%;
+}
+
+.star:nth-child(5) {
+    left: 90%;
+    top: 70%;
+}
+
+.line {
+    position: absolute;
+    height: 1px;
+    background: rgba(255,255,255,0.35);
+    transform-origin: left center;
+}
+
+.line1 {
+    width: 120px;
+    left: 17%;
+    top: 48%;
+    transform: rotate(-25deg);
+}
+
+.line2 {
+    width: 130px;
+    left: 36%;
+    top: 22%;
+    transform: rotate(30deg);
+}
+
+.line3 {
+    width: 130px;
+    left: 56%;
+    top: 58%;
+    transform: rotate(-30deg);
+}
+
+.line4 {
+    width: 110px;
+    left: 76%;
+    top: 32%;
+    transform: rotate(30deg);
+}
+
+/* REMINDER WORDS */
+.reminders {
+    margin: 30px 0;
+}
+
+.reminder {
+    opacity: 0;
+    transform: translateY(15px);
+    animation: revealText 1s forwards;
+    font-size: 25px;
+    margin: 18px 0;
+    color: #f5d0fe;
+    text-shadow: 0 0 15px rgba(216, 180, 254, 0.4);
+}
+
+.reminder:nth-child(1) {
+    animation-delay: 0.5s;
+}
+
+.reminder:nth-child(2) {
+    animation-delay: 1.2s;
+}
+
+.reminder:nth-child(3) {
+    animation-delay: 1.9s;
+}
+
+@keyframes revealText {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* LETTER CARD */
+.card {
+    background: rgba(20, 5, 40, 0.65);
+    border: 1px solid rgba(216, 180, 254, 0.25);
+    border-radius: 25px;
+    padding: 35px 28px;
+    margin: 20px auto;
+    max-width: 560px;
+    box-shadow:
+        0 0 35px rgba(139, 92, 246, 0.18),
+        inset 0 0 25px rgba(236, 72, 153, 0.05);
+    backdrop-filter: blur(8px);
+}
+
+.card .dear {
+    color: #f9a8d4;
+    font-size: 25px;
+    margin-bottom: 25px;
+}
+
+.card p {
+    font-size: 18px;
+    margin-bottom: 18px;
+}
+
+/* PHOTO */
+.photo-container {
+    margin: 30px auto;
+    max-width: 350px;
+}
+
+.photo-container img {
+    width: 100%;
+    border-radius: 25px;
+    border: 2px solid rgba(216, 180, 254, 0.35);
+    box-shadow:
+        0 0 30px rgba(168, 85, 247, 0.35),
+        0 0 70px rgba(236, 72, 153, 0.12);
+    transition: 0.5s;
+}
+
+.photo-container img:hover {
+    transform: scale(1.03);
+}
+
+.caption {
+    margin-top: 18px;
+    font-size: 22px;
+    color: #f9a8d4;
+}
+
+/* FINAL */
+.final-text {
+    font-size: 21px;
+    line-height: 2;
+    color: #f3e8ff;
+}
+
+.moon {
+    font-size: 55px;
+    margin-bottom: 20px;
+    animation: floatMoon 3s ease-in-out infinite;
+}
+
+@keyframes floatMoon {
+    0%,100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+
+    h1 {
+        font-size: 34px;
+    }
+
+    h2 {
+        font-size: 25px;
+    }
+
+    p {
+        font-size: 17px;
+    }
+
+    .reminder {
+        font-size: 22px;
+    }
+
+    .card {
+        padding: 28px 20px;
+    }
+
+    .page {
+        padding: 35px 18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="galaxy"></div>
+<div class="stars"></div>
+<div class="stars2"></div>
+<div class="stars3"></div>
+
+
+<!-- PAGE 1 -->
+<section class="page active" id="intro">
+    <div class="content">
+
+        <div class="moon">🌙</div>
+
+        <div class="small">FOR MY MAEEE</div>
+
+        <h1>If You Ever Forget…</h1>
+
+        <p>
+            There might be days when you don't feel beautiful.
+        </p>
+
+        <p>
+            Days when you don't feel strong.
+        </p>
+
+        <p>
+            Days when you wonder if you matter.
+        </p>
+
+        <button onclick="showPage('reminder')">
+            Enter…
+        </button>
+
+    </div>
+</section>
+
+
+<!-- PAGE 2 -->
+<section class="page" id="reminder">
+    <div class="content">
+
+        <div class="constellation">
+
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+
+            <div class="line line1"></div>
+            <div class="line line2"></div>
+            <div class="line line3"></div>
+            <div class="line line4"></div>
+
+        </div>
+
+        <h2>If one of those days ever comes…</h2>
+
+        <p>
+            Come back here.
+        </p>
+
+        <p>
+            Because I'll remind you.
+        </p>
+
+        <div class="reminders">
+
+            <div class="reminder">
+                You matter.
+            </div>
+
+            <div class="reminder">
+                You are loved.
+            </div>
+
+            <div class="reminder">
+                You never have to earn that.
+            </div>
+
+        </div>
+
+        <button onclick="showPage('words')">
+            I want you to remember this →
+        </button>
+
+    </div>
+</section>
+
+
+<!-- PAGE 3 -->
+<section class="page" id="words">
+    <div class="content">
+
+        <div class="card">
+
+            <div class="dear">
+                Maee…
+            </div>
+
+            <p>
+                I may not always know what you're feeling.
+            </p>
+
+            <p>
+                I may not always know what to say.
+            </p>
+
+            <p>
+                But I'll always want you to be okay.
+            </p>
+
+            <p>
+                Always.
+            </p>
+
+        </div>
+
+        <button onclick="showPage('photo')">
+            There's something I want you to see… 👀
+        </button>
+
+    </div>
+</section>
+
+
+<!-- PAGE 4 -->
+<section class="page" id="photo">
+    <div class="content">
+
+        <h2>
+            This is the Mae I hope you never forget.
+        </h2>
+
+        <div class="photo-container">
+
+            <img src="you1.jpg" alt="Mae">
+
+            <div class="caption">
+                The girl I see. 🌌
+            </div>
+
+        </div>
+
+        <p>
+            Not because you're perfect.
+        </p>
+
+        <p>
+            Not because you have to be.
+        </p>
+
+        <p>
+            Just because you're you.
+        </p>
+
+        <button onclick="showPage('final')">
+            Keep this little reminder with you →
+        </button>
+
+    </div>
+</section>
+
+
+<!-- PAGE 5 -->
+<section class="page" id="final">
+    <div class="content">
+
+        <div class="moon">
+            🌙
+        </div>
+
+        <h1>
+            Whenever the world feels a little too heavy…
+        </h1>
+
+        <div class="final-text">
+
+            <p>
+                remember that somewhere,
+                your little baby is quietly cheering for you.
+            </p>
+
+            <p>
+                And I'll always be glad that I got to know you.
+            </p>
+
+            <p>
+                Now… take a breath.
+            </p>
+
+            <p>
+                🌌
+            </p>
+
+        </div>
+
+        <button onclick="goNext()">
+            One last little surprise →
+        </button>
+
+    </div>
+</section>
+
+
+<script>
+
+function showPage(id) {
+
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+function goNext() {
+    window.location.href = "page9.html";
+}
+
+</script>
+
+</body>
+</html>
