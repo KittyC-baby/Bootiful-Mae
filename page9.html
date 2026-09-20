@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Before You Go... 🌌</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Georgia, serif;
+    background: #02000b;
+    color: white;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* =========================
+   GALAXY BACKGROUND
+========================= */
+
+.galaxy {
+    position: fixed;
+    inset: 0;
+    z-index: -5;
+
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(139, 92, 246, 0.28),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 80% 30%,
+            rgba(236, 72, 153, 0.20),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 50% 80%,
+            rgba(99, 102, 241, 0.18),
+            transparent 32%
+        ),
+
+        linear-gradient(
+            180deg,
+            #02000b,
+            #080018,
+            #03000c
+        );
+}
+
+/* =========================
+   STARS
+========================= */
+
+.stars,
+.stars2,
+.stars3 {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -4;
+}
+
+.stars {
+    background-image:
+        radial-gradient(2px 2px at 20px 30px, white, transparent),
+        radial-gradient(1px 1px at 90px 120px, white, transparent),
+        radial-gradient(2px 2px at 200px 80px, white, transparent),
+        radial-gradient(1px 1px at 300px 180px, white, transparent),
+        radial-gradient(2px 2px at 400px 40px, white, transparent),
+        radial-gradient(1px 1px at 500px 150px, white, transparent);
+
+    background-size: 550px 220px;
+
+    opacity: 0.7;
+
+    animation:
+        moveStars 35s linear infinite;
+}
+
+.stars2 {
+    background-image:
+        radial-gradient(1px 1px at 50px 60px, #d8b4fe, transparent),
+        radial-gradient(2px 2px at 150px 190px, #f9a8d4, transparent),
+        radial-gradient(1px 1px at 270px 100px, white, transparent),
+        radial-gradient(1px 1px at 370px 220px, #c4b5fd, transparent),
+        radial-gradient(2px 2px at 480px 70px, white, transparent);
+
+    background-size: 600px 260px;
+
+    opacity: 0.5;
+
+    animation:
+        moveStars 55s linear infinite reverse;
+}
+
+.stars3 {
+    background-image:
+        radial-gradient(1px 1px at 100px 100px, white, transparent),
+        radial-gradient(1px 1px at 250px 50px, white, transparent),
+        radial-gradient(1px 1px at 450px 170px, white, transparent),
+        radial-gradient(2px 2px at 550px 30px, #f5d0fe, transparent);
+
+    background-size: 700px 300px;
+
+    opacity: 0.4;
+
+    animation:
+        twinkle 4s ease-in-out infinite alternate;
+}
+
+@keyframes moveStars {
+
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-220px);
+    }
+
+}
+
+@keyframes twinkle {
+
+    from {
+        opacity: 0.25;
+    }
+
+    to {
+        opacity: 0.75;
+    }
+
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.page {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 60px 20px;
+
+    text-align: center;
+}
+
+.content {
+    width: 100%;
+    max-width: 650px;
+}
+
+/* =========================
+   INTRO
+========================= */
+
+.moon {
+    font-size: 58px;
+
+    margin-bottom: 20px;
+
+    animation:
+        floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+}
+
+.small-title {
+    color: #d8b4fe;
+
+    letter-spacing: 4px;
+
+    font-size: 13px;
+
+    margin-bottom: 18px;
+}
+
+h1 {
+    font-size: 42px;
+
+    color: #f5d0fe;
+
+    margin-bottom: 25px;
+
+    text-shadow:
+        0 0 15px rgba(236, 72, 153, 0.4),
+        0 0 35px rgba(139, 92, 246, 0.3);
+}
+
+p {
+    font-size: 18px;
+
+    line-height: 1.8;
+
+    color: #f3e8ff;
+
+    margin-bottom: 14px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+
+button {
+    margin-top: 28px;
+
+    padding: 14px 28px;
+
+    border-radius: 30px;
+
+    border: 1px solid rgba(255,255,255,0.25);
+
+    background:
+        rgba(139, 92, 246, 0.18);
+
+    color: white;
+
+    font-family: Georgia, serif;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: 0.4s;
+
+    box-shadow:
+        0 0 20px rgba(168, 85, 247, 0.2);
+}
+
+button:hover {
+    transform: scale(1.07);
+
+    background:
+        rgba(236, 72, 153, 0.28);
+
+    box-shadow:
+        0 0 35px rgba(236, 72, 153, 0.4);
+}
+
+/* =========================
+   SECTIONS
+========================= */
+
+.section {
+    display: none;
+
+    min-height: 100vh;
+
+    justify-content: center;
+    align-items: center;
+
+    padding: 55px 20px;
+
+    text-align: center;
+
+    animation:
+        fadeIn 1.4s ease;
+}
+
+.section.active {
+    display: flex;
+}
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+/* =========================
+   LITTLE LINES
+========================= */
+
+.little-lines {
+    margin: 30px auto;
+
+    max-width: 520px;
+}
+
+.little-lines p {
+    opacity: 0;
+
+    animation:
+        appear 1s forwards;
+}
+
+.little-lines p:nth-child(1) {
+    animation-delay: 0.4s;
+}
+
+.little-lines p:nth-child(2) {
+    animation-delay: 1.2s;
+}
+
+.little-lines p:nth-child(3) {
+    animation-delay: 2s;
+}
+
+.little-lines p:nth-child(4) {
+    animation-delay: 2.8s;
+}
+
+@keyframes appear {
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+/* =========================
+   MAIN MESSAGE
+========================= */
+
+.big-message {
+    font-size: 25px;
+
+    color: #f9a8d4;
+
+    line-height: 1.8;
+
+    margin: 30px 0;
+
+    text-shadow:
+        0 0 18px rgba(249, 168, 212, 0.25);
+}
+
+/* =========================
+   PHOTO
+========================= */
+
+.photo-box {
+    margin: 30px auto;
+
+    max-width: 350px;
+}
+
+.photo-box img {
+    width: 100%;
+
+    border-radius: 25px;
+
+    border: 2px solid rgba(216, 180, 254, 0.3);
+
+    box-shadow:
+        0 0 30px rgba(168, 85, 247, 0.35),
+        0 0 70px rgba(236, 72, 153, 0.12);
+
+    transition: 0.5s;
+}
+
+.photo-box img:hover {
+    transform: scale(1.03);
+}
+
+/* =========================
+   FINAL CARD
+========================= */
+
+.final-card {
+    background:
+        rgba(15, 3, 30, 0.65);
+
+    border:
+        1px solid rgba(216, 180, 254, 0.22);
+
+    border-radius: 28px;
+
+    padding: 38px 25px;
+
+    margin: 30px auto;
+
+    max-width: 570px;
+
+    backdrop-filter: blur(8px);
+
+    box-shadow:
+        0 0 40px rgba(139, 92, 246, 0.15);
+}
+
+.final-card p {
+    font-size: 19px;
+
+    line-height: 1.9;
+}
+
+/* =========================
+   LAST MESSAGE
+========================= */
+
+.last-message {
+    display: none;
+
+    margin-top: 40px;
+
+    animation:
+        lastReveal 2s ease;
+}
+
+.last-message.show {
+    display: block;
+}
+
+@keyframes lastReveal {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+.tiny-title {
+    font-size: 18px;
+
+    color: #d8b4fe;
+
+    margin-bottom: 25px;
+
+    letter-spacing: 1px;
+}
+
+.apology {
+    font-size: 17px;
+
+    line-height: 2;
+
+    color: #eee0ff;
+
+    margin-bottom: 18px;
+}
+
+.love-line {
+    font-size: 24px;
+
+    color: #f9a8d4;
+
+    line-height: 1.8;
+
+    margin: 25px 0;
+
+    text-shadow:
+        0 0 15px rgba(249, 168, 212, 0.35);
+}
+
+.support-line {
+    font-size: 19px;
+
+    color: #e9d5ff;
+
+    line-height: 1.9;
+}
+
+/* =========================
+   HEART
+========================= */
+
+.heart-button {
+    position: relative;
+
+    width: 70px;
+    height: 70px;
+
+    border: none;
+
+    background: transparent;
+
+    margin: 35px auto 10px;
+
+    display: block;
+
+    cursor: pointer;
+
+    transform: rotate(-45deg);
+
+    box-shadow: none;
+}
+
+.heart-button::before,
+.heart-button::after {
+    content: "";
+
+    position: absolute;
+
+    width: 42px;
+    height: 42px;
+
+    background: #d946ef;
+
+    border-radius: 50%;
+}
+
+.heart-button::before {
+    top: 0;
+    left: 0;
+}
+
+.heart-button::after {
+    top: 0;
+    left: 28px;
+}
+
+.heart-shape {
+    position: absolute;
+
+    width: 42px;
+    height: 42px;
+
+    background: #d946ef;
+
+    top: 21px;
+    left: 14px;
+
+    z-index: -1;
+}
+
+.heart-button:hover {
+    transform:
+        rotate(-45deg)
+        scale(1.15);
+
+    background: transparent;
+
+    box-shadow: none;
+}
+
+.heart-text {
+    margin-top: 18px;
+
+    color: #d8b4fe;
+
+    font-size: 14px;
+
+    letter-spacing: 1px;
+}
+
+/* =========================
+   END
+========================= */
+
+.end-text {
+    margin-top: 45px;
+
+    color: #c4b5fd;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+}
+
+.signature {
+    margin-top: 25px;
+
+    color: #f9a8d4;
+
+    font-size: 17px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    h1 {
+        font-size: 34px;
+    }
+
+    p {
+        font-size: 17px;
+    }
+
+    .big-message {
+        font-size: 22px;
+    }
+
+    .final-card {
+        padding: 30px 20px;
+    }
+
+    .love-line {
+        font-size: 21px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- GALAXY -->
+<div class="galaxy"></div>
+<div class="stars"></div>
+<div class="stars2"></div>
+<div class="stars3"></div>
+
+
+<!-- =========================
+     OPENING
+========================= -->
+
+<section class="section active" id="opening">
+
+    <div class="content">
+
+        <div class="moon">
+            🌙
+        </div>
+
+        <div class="small-title">
+            ONE LAST PAGE
+        </div>
+
+        <h1>
+            Before You Go…
+        </h1>
+
+        <p>
+            Maee…
+        </p>
+
+        <p>
+            Before you leave this little world
+            I made for you…
+        </p>
+
+        <button onclick="showSection('littleWorld')">
+            Stay for a little longer…
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     LITTLE WORLD
+========================= -->
+
+<section class="section" id="littleWorld">
+
+    <div class="content">
+
+        <h1>
+            This little world… 🌌
+        </h1>
+
+        <div class="little-lines">
+
+            <p>
+                This website isn't perfect.
+            </p>
+
+            <p>
+                Some pages are silly.
+            </p>
+
+            <p>
+                Some are embarrassing. 😭
+            </p>
+
+            <p>
+                Some are way too emotional.
+            </p>
+
+        </div>
+
+        <p class="big-message">
+            And honestly…
+            that's very us.
+        </p>
+
+        <button onclick="showSection('meaning')">
+            There's something I want you to know →
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MEANING
+========================= -->
+
+<section class="section" id="meaning">
+
+    <div class="content">
+
+        <div class="moon">
+            ✦
+        </div>
+
+        <h1>
+            Every little part…
+        </h1>
+
+        <div class="final-card">
+
+            <p>
+                I made every little part of this
+                thinking about you.
+            </p>
+
+            <p>
+                Every page.
+            </p>
+
+            <p>
+                Every silly little game.
+            </p>
+
+            <p>
+                Every word.
+            </p>
+
+            <p>
+                Every tiny detail.
+            </p>
+
+            <p class="big-message">
+                It was all made for my Mae.
+            </p>
+
+        </div>
+
+        <button onclick="showSection('photo')">
+            There's one more thing… 👀
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PHOTO
+========================= -->
+
+<section class="section" id="photo">
+
+    <div class="content">
+
+        <h1>
+            And this is my favourite part…
+        </h1>
+
+        <div class="photo-box">
+
+            <!-- CHANGE THIS PHOTO IF NEEDED -->
+            <img src="you1.jpg" alt="Mae">
+
+        </div>
+
+        <p class="big-message">
+            If you ever forget how much
+            you mean to me…
+        </p>
+
+        <p>
+            Come back here.
+        </p>
+
+        <p>
+            Because somewhere behind every
+            page of this little website…
+        </p>
+
+        <p>
+            there was a little baby who was
+            really, really happy to have you
+            in her world.
+        </p>
+
+        <button onclick="showSection('thankYou')">
+            Open the last message
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     THANK YOU
+========================= -->
+
+<section class="section" id="thankYou">
+
+    <div class="content">
+
+        <div class="moon">
+            🌙
+        </div>
+
+        <h1>
+            Thank you for being my Mae.
+        </h1>
+
+        <p class="big-message">
+            I hope you always know
+            that you are loved.
+        </p>
+
+        <button onclick="showLastMessage()">
+            One tiny little message… ♡
+        </button>
+
+
+        <!-- =========================
+             TINY FINAL MESSAGE
+        ========================= -->
+
+        <div class="last-message" id="lastMessage">
+
+            <div class="tiny-title">
+                A tiny little message… ♡
+            </div>
+
+            <div class="apology">
+
+                I'm so sorry, Maee… 🥹
+                It took 2 months.
+
+                <br><br>
+
+                And in between, I got busy,
+                so it got delayed so much…
+
+                <br><br>
+
+                I'm so zorryyy naa khub… 😭🤏🏻
+
+                <br><br>
+
+                But I made it in the end!!
+                At last…
+
+            </div>
+
+            <div class="love-line">
+
+                I have only one word to tell you…
+
+                <br>
+
+                <strong>
+                    I love you naa, Maee!! 🫠💫
+                </strong>
+
+            </div>
+
+            <div class="support-line">
+
+                You've been my great support!! 🫠💫
+
+                <br><br>
+
+                You healed something
+                which you didn't break!! 🥹
+
+                <br><br>
+
+                I'm really grateful to have you, Mae!!
+
+                <br><br>
+
+                <strong>
+                    Love you naa. 💜
+                </strong>
+
+            </div>
+
+
+            <!-- CSS HEART -->
+
+            <button
+                class="heart-button"
+                onclick="finishPage()"
+                aria-label="Finish">
+
+                <span class="heart-shape"></span>
+
+            </button>
+
+            <div class="heart-text">
+                made with love
+            </div>
+
+
+            <div class="end-text">
+
+                This is the end of this little website…
+
+                <br>
+
+                but not the end of the memories. 🌌
+
+                <div class="signature">
+                    Made with love by your little baby 🐱🎀
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* =========================
+   PAGE NAVIGATION
+========================= */
+
+function showSection(id) {
+
+    document.querySelectorAll(".section").forEach(section => {
+
+        section.classList.remove("active");
+
+    });
+
+    document.getElementById(id).classList.add("active");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================
+   LAST MESSAGE REVEAL
+========================= */
+
+function showLastMessage() {
+
+    const message =
+        document.getElementById("lastMessage");
+
+    message.classList.add("show");
+
+    setTimeout(() => {
+
+        message.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }, 300);
+
+}
+
+
+/* =========================
+   FINAL HEART
+========================= */
+
+function finishPage() {
+
+    document.body.innerHTML = `
+
+        <div style="
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            padding:30px;
+            background:
+                radial-gradient(
+                    circle at center,
+                    #17052b,
+                    #05000d 65%
+                );
+            color:white;
+            font-family:Georgia,serif;
+        ">
+
+            <div>
+
+                <div style="
+                    font-size:55px;
+                    margin-bottom:25px;
+                ">
+                    🌌
+                </div>
+
+                <div style="
+                    font-size:28px;
+                    color:#f9a8d4;
+                    line-height:1.8;
+                ">
+                    That's all, Maee…
+                </div>
+
+                <div style="
+                    margin-top:20px;
+                    font-size:18px;
+                    color:#e9d5ff;
+                    line-height:1.9;
+                ">
+                    Thank you for staying
+                    until the very end. 🥹
+                </div>
+
+                <div style="
+                    margin-top:30px;
+                    font-size:16px;
+                    color:#c4b5fd;
+                ">
+                    💜
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+</script>
+
+</body>
+</html>
